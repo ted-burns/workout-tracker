@@ -50,5 +50,4 @@ class Set(models.Model):
     expected_reps = models.IntegerField()
     performed_reps = models.IntegerField(null=True)
     order = models.IntegerField(null=True)
-
-
+    

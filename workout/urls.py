@@ -1,3 +1,5 @@
+#pylint: disable=c0103
+
 """workout URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,9 +15,21 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework.routers import DefaultRouter
+from tracker import views
+
+router = DefaultRouter()
+router.register(r'users', views.UserList)
+router.register(r'muscles', views.MuscleList)
+router.register(r'musclegroups', views.MuscleGroupList)
+router.register(r'exercise', views.ExerciseList)
+router.register(r'set', views.SetList)
+router.register(r'workout', views.WorkoutList)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^', include(router.urls))
 ]
